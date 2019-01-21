@@ -1,0 +1,5 @@
+Hello
+hello
+goodbye
+hello.there
+none

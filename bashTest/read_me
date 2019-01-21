@@ -1,0 +1,17 @@
+Task: given single-token search string, find count of all instances in text file.
+
+Run either of 2 solutions with ./sol_grep_all.sh or ./sol_egrep_ws.sh
+-- may need to add exe permission to script first, e.g. “chmod u+x sol_grep_all.sh”.
+
+Files for each test dir:
+ testfile.txt - text file to search for occurences of search string.
+ search_terms.txt - list of search strings, 1 per line.
+ result*.txt - corresponding expected counts, 1 per line, for search strings in search_terms.txt. 
+
+Solutions - read each search string from search_terms.txt, output number of times each string found in testfile.txt to solution-specific output file (out*.txt), display final output file after all searches, compare final output file to appropriate expected-results file (result*.txt), output “pass” or “fail”, if fail output lines that mismatch between actual output and expected results.
+
+ sol_grep_all.sh - counts of every occurrence of search string ignoring surrounding characters. e.g. a search for "hello" WOULD count "hello." or "hellos" or "a-hello".
+   - outputs to out_all.txt, expected results in result_all_substr.txt 
+
+ sol_egrep_ws.sh - counts of only exact string separated from any other characters by preceding and following whitespace (including begin/end of line or file). e.g. a search for "hello" would NOT count "hello." or "hellos" or "a-hello". 
+   - outputs to out_sep_ws.txt, expected results in result_sep_ws.txt.
