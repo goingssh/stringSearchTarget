@@ -1,0 +1,5 @@
+(won|lost)
+\d{3}
+cond*
+cond+
+\d{6}

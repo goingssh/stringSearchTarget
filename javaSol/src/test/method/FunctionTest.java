@@ -25,7 +25,7 @@ public class FunctionTest {
 	 * @return          -1 if IO error, 0 otherwise.
 	 * @see             SimpleSearch.java
 	 */
-	public static int SimpleSearchTest(String dirname) {
+	public static int SearchTest(String dirname, String searchType) {
 		String countFile = dirname+"/result_substr.txt";
 		try{
       	    Scanner scanTerms = new Scanner(new File(dirname+"/search_terms.txt"));
@@ -33,7 +33,13 @@ public class FunctionTest {
 			int failCount=0;
 			while (scanTerms.hasNext()) {
                 String s = scanTerms.next();
-				int count = SimpleSearch.getCount(dirname+"/testfile.txt", s);
+				int count = -1;
+				if (searchType.equals("simple")) {
+					count = SimpleSearch.getCount(dirname+"/testfile.txt", s);
+				}
+				else if (searchType.equals("regex")) {
+					count = RegExpSearch.getCount(dirname+"/testfile.txt", s);
+				}
 				int testcount = scanCounts.nextInt();
 				if (count != testcount) {
 					System.out.print("test fail on term -" + s + "- ");
@@ -49,20 +55,43 @@ public class FunctionTest {
 		return 0;
 	}
 
+	//	enum SearchType
+    //{ 
+    //    SIMPLE, REGEX, INDEX, ALL; 
+    //} 
+
+
 	/**
 	 * Runs quick function checking tests.
-	 * @param  args  requires 1 path to test directory on command line, more are optional
+	 * @param  args  not used
 	 */
 	public static void main(String[] args) {
-		if (args.length < 1) {
-			System.out.println("usage: java Test testdir");
-           return;
-        }
-		for (int i=0; i<args.length; i++) {
-			String dirname = args[i];
-			System.out.println("\ntesting dir " + dirname);
-			int err = SimpleSearchTest(dirname);
+		// SearchType toTest = SearchType.ALL;
+		// if (args.length > 0) {
+		// 	toTest = SearchType.valueOf(args[0]);
+		// }
+		// else {
+		// 	System.out.print("defaulting to testing all search types, to test specific");
+		// 	System.out.println("search type run with argument (SIMPLE, REGEX, INDEX or ALL)");
+		// }
+		String basedir = "../resources/function_tests/";
+		String[] dirs = {"test1", "test2", "test3"};
+
+		int err = 0;
+		String dirname = "";
+		for (int i=0; i<2; i++) {
+			dirname = basedir + dirs[i];
+			System.out.printf("\ntesting %s search on dir %s\n", "simple", dirname);
+			err = SearchTest(dirname, "simple");
+			if (err < 0) break;
+			System.out.printf("\ntesting %s search on dir %s\n", "regex", dirname);
+			err = SearchTest(dirname, "regex");
 			if (err < 0) break;
 		}
+		if (err >= 0) {
+			dirname = basedir + dirs[2];
+			System.out.printf("\ntesting %s search on dir %s\n", "regex", dirname);
+			err = SearchTest(dirname, "regex");
+		}	
 	}
 }
