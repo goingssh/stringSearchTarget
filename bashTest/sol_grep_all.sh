@@ -1,13 +1,24 @@
 #!/bin/bash
 
-> out_all.txt
+testdir=$1
+if [ ! -z "$testdir" ]
+then
+    echo "counts:" 
+else
+    echo
+    echo "must include test directory! usage: ./sol_grep_all.sh testdir"
+    echo
+    exit 1
+fi
+
+outfile="out_substr.txt"
+> $outfile
 while read -r line; do
-    name="$line" #| xargs
-    #echo $name
-    grep -o $name test1/testfile.txt | wc -l | xargs >> out_all.txt
-done < "test1/search_terms.txt"
+    name="$line"
+    grep -o $name $testdir"/testfile.txt" | wc -l | xargs >> $outfile
+done < $testdir"/search_terms.txt"
 
-cat out_all.txt
+cat $outfile
 
-err=$(diff out_all.txt test1/result_all_substr.txt)
+err=$(diff $outfile $testdir"/result_substr.txt")
 [[ ! -z "$err" ]] && echo "fail" $err || echo "pass"
