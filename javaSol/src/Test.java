@@ -24,9 +24,9 @@ public class Test {
 	 * @see             SimpleSearch.java
 	 */
 	public static int SimpleSearchTest(String dirname, boolean substr) {
-		String countFile = dirname+"/result_sep_ws.txt";
+		String countFile = dirname+"/result_exact.txt";
 		if (substr) {
-			countFile=dirname+"/result_all_substr.txt";
+			countFile=dirname+"/result_substr.txt";
 		}
 		try{
       	    Scanner scanTerms = new Scanner(new File(dirname+"/search_terms.txt"));
@@ -63,9 +63,9 @@ public class Test {
         String dirname = args[0];
 		System.out.println("\ntesting substr matches");
 		int err = SimpleSearchTest(dirname, true);
-		if (err >= 0) {
-			System.out.println("\ntesting exact matches");
-			err = SimpleSearchTest(dirname, false);
-		}
+		//		if (err >= 0) {
+		//			System.out.println("\ntesting exact matches");
+		//			err = SimpleSearchTest(dirname, false);
+		//		}
 	}
 }

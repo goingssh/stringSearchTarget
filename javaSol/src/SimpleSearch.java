@@ -19,14 +19,17 @@ public class SimpleSearch {
 	public static int getCount(String filename, String searchTerm, boolean substr) {
 		int count=0;
         try{
-      	    Scanner scan = new Scanner(new File(filename));
-			while (scan.hasNext()) {
-                String s = scan.next();
-				if (s.equals(searchTerm) || (substr && s.contains(searchTerm))) {
-						count++;
+			String sline;
+			BufferedReader fin = new BufferedReader(new FileReader(filename));
+			while ((sline = fin.readLine()) != null) {
+				int index = sline.indexOf(searchTerm, 0);
+				while (index != -1) {
+					count++;
+					index = sline.indexOf(searchTerm, index+1);
 				}
 			}
-        } catch (IOException e){
+			fin.close();
+		} catch (IOException e){
 			System.err.println("Error: " + e.getMessage());
 			return -1;
 		}
@@ -34,7 +37,7 @@ public class SimpleSearch {
     }
 
 	/**
-	 * Runs simple search on file for exact matches only (sets substr to false).
+	 * Runs simple search on file for string matches (does not handle multi-line search terms)
 	 * @param  args  requires 2 command line arguments, name of file and search term
 	 */
 	public static void main(String[] args) {
@@ -45,7 +48,7 @@ public class SimpleSearch {
 
         String filename = args[0];
 		String searchTerm = args[1];
-		int count = getCount(filename, searchTerm, false);
+		int count = getCount(filename, searchTerm, true);
 		if (count >= 0) {
 			System.out.printf("%s appears %d times in file %s\n", searchTerm, count, filename);
 		}
