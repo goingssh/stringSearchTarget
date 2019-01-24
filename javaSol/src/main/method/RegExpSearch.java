@@ -5,41 +5,86 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
 import java.lang.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Count number instances of search term in files where search term is regular expression
  * @author Sherri Goings
  */
-public class RegExpSearch {
+public class RegExpSearch implements Search {
+
+	// list of all filename/contents_string pairs
+	private ArrayList<FileString> filestrings;
+
+	public RegExpSearch(String path) {
+		filestrings = new ArrayList<FileString>();
+		readFiles(path);
+	}
+
+	private class FileString {
+		private String filename;
+		private String contents;
+
+		public FileString(String filename, String contents) {
+			this.filename = filename;
+			this.contents = contents;
+		}
+		public String getContents() {
+			return contents;
+		}
+		public String getName() {
+			return filename;
+		}
+	}
+
+	private void readFiles(String path) {
+		File folder = new File(path);
+		File[] filelist = folder.listFiles();
+		
+		for (File file : filelist) {
+			if (file.isFile()) {
+				String contents="";
+				try {
+					Path filepath = file.toPath();
+					contents = new String(Files.readAllBytes(filepath), StandardCharsets.UTF_8);
+				} catch (IOException e){
+					System.err.println("Error: " + e.getMessage());
+				}
+				FileString curFileString = new FileString(file.getName(), contents);
+				filestrings.add(curFileString);
+			}
+		}
+	}
+
+		
 	/**
 	 * Finds the number of times a search string appears in a text file.
-	 * Simple unoptimized method reads file (buffered so can handle still if large),
-	 * line by line and counts number of times search string appears as substring in 
-	 * each line, accumulated across all lines. Cannot handle search strings that span
-	 * multiple lines. 
-	 * @param  filename    the text file to search
+	 * Simple unoptimized method loops through string of entire contents of file to
+	 * check if search term appears as a substring using indexOf method. Each time
+	 * instance of search term is found, begins checking again at character after
+	 * 1st character of found substring. Note that this means if searching for the 
+	 * string "aa" in the string "aaa" it would be found twice.
 	 * @param  searchTerm  the string to search for
+	 * @param  contents    the file contents string searching through
 	 * @return             total number of matches found 
 	 */
-	public static int getCount(String filename, String searchTerm) {
+	public int getCount(String searchTerm, String contents) {
 		int count=0;
-        try{
-			String sline;
-			BufferedReader fin = new BufferedReader(new FileReader(filename));
-			Pattern pattern =  Pattern.compile(searchTerm);
-			Matcher matcher = null;
-			while ((sline = fin.readLine()) != null) {
-				matcher = pattern.matcher(sline);
-				while (matcher.find()) {
-					count++;
-				}
-			}
-			fin.close();
-		} catch (IOException e){
-			System.err.println("Error: " + e.getMessage());
-			return -1;
+		Pattern pattern =  Pattern.compile(searchTerm);
+		Matcher matcher = null;
+		matcher = pattern.matcher(contents);
+		while (matcher.find()) {
+			count++;
 		}
 		return count;
     }
+
+	// * for functional tests, always will only be one file to search
+	public int getCount(String searchTerm) {
+		return getCount(searchTerm, filestrings.get(0).getContents());
+	}
    
 }

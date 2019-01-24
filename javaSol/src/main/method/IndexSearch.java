@@ -8,7 +8,7 @@ import java.lang.*;
  * Count number instances of search term in files where first preprocess files to hash word counts
  * @author Sherri Goings
  */
-public class IndexSearch {
+public class IndexSearch implements Search {
 
 	// associates each filename with its map of wordcounts
 	private class FileMap {
@@ -50,14 +50,9 @@ public class IndexSearch {
 		
 		for (File file : filelist) {
 			if (file.isFile()) {
-				
-				// *** this "if" is temporary to work with current functional tests setup,
-				// simply remove the "if" once test format is updated! ***
-				if (file.getName().equals("testfile.txt")) {
-					FileMap curFileMap = new FileMap(file.getName());
-					buildFileMap(curFileMap, file);
-					filemaps.add(curFileMap);
-				}
+				FileMap curFileMap = new FileMap(file.getName());
+				buildFileMap(curFileMap, file);
+				filemaps.add(curFileMap);
 			}
 		}
 	}
@@ -89,38 +84,4 @@ public class IndexSearch {
 		int count = filemaps.get(0).getCount(searchTerm);
 		return count;
     }
-
-	/*public static void main(String[] args) {
-
-		IndexSearch isearch = new IndexSearch("test1/");
-		String basedir = "./";
-		String[] dirs = {"test1", "test2", "test3"};
-
-		int err = 0;
-		String dirname = "";
-
-		dirname = basedir + dirs[0];
-		System.out.printf("\ntesting %s search on dir %s\n", "simple", dirname);
-
-		String countFile = dirname+"/result_exact.txt";
-		try{
-      	    Scanner scanTerms = new Scanner(new File(dirname+"/search_terms.txt"));
-			Scanner scanCounts = new Scanner(new File(countFile));
-			int failCount=0;
-			while (scanTerms.hasNext()) {
-                String s = scanTerms.nextLine();
-				int count = isearch.getCount(s);
-				int testcount = scanCounts.nextInt();
-				if (count != testcount) {
-					System.out.print("test fail on term -" + s + "- ");
-					System.out.printf("found %d, expected %d\n", count, testcount);
-					failCount++;
-				}
-			}
-			System.out.printf("%d count errors\n", failCount);
-        }catch (IOException e){
-			System.err.println("Error: " + e.getMessage());
-		}
-		}*/
-   
 }
