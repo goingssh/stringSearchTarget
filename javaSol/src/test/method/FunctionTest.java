@@ -27,6 +27,8 @@ public class FunctionTest {
 	 */
 	public static int SearchTest(String dirname, String searchType) {
 		String countFile = dirname+"/result_substr.txt";
+		if (searchType.equals("index")) countFile = dirname+"/result_exact.txt";
+		
 		try{
       	    Scanner scanTerms = new Scanner(new File(dirname+"/search_terms.txt"));
 			Scanner scanCounts = new Scanner(new File(countFile));
@@ -35,10 +37,15 @@ public class FunctionTest {
                 String s = scanTerms.nextLine();
 				int count = -1;
 				if (searchType.equals("simple")) {
-					count = SimpleSearch.getCount(dirname+"/testfile.txt", s);
+					SimpleSearch simple = new SimpleSearch(dirname);
+					count = simple.getCount(s);
 				}
 				else if (searchType.equals("regex")) {
 					count = RegExpSearch.getCount(dirname+"/testfile.txt", s);
+				}
+				else if (searchType.equals("index")) {
+					IndexSearch index = new IndexSearch(dirname);
+					count = index.getCount(s);
 				}
 				int testcount = scanCounts.nextInt();
 				if (count != testcount) {
@@ -86,6 +93,9 @@ public class FunctionTest {
 			if (err < 0) break;
 			System.out.printf("\ntesting %s search on dir %s\n", "regex", dirname);
 			err = SearchTest(dirname, "regex");
+			if (err < 0) break;
+			System.out.printf("\ntesting %s search on dir %s\n", "index", dirname);
+			err = SearchTest(dirname, "index");
 			if (err < 0) break;
 		}
 		if (err >= 0) {

@@ -1,0 +1,17 @@
+Task: given single-token search string, find count of all instances in text file.
+
+Requirements: Java7
+
+To run: JAR file is in dist folder, testfile paths currently require navigating to dist folder on command line then run “java -jar StringSearch-20190124.jar”
+
+To compile: from javaSol directory, run “ant compile”, to create new JAR run “ant dist”
+
+JAR file currently runs all applicable functional tests on each of 3 solution methods
+  Simple string matching
+  Regular expression matching
+  Preprocessing into hash table then lookup
+
+Files for each test dir:
+ testfile.txt - text file to search for occurences of search string.
+ search_terms.txt - list of search strings, 1 per line.
+ result*.txt - corresponding expected counts, 1 per line, for search strings in search_terms.txt. 

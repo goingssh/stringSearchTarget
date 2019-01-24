@@ -4,6 +4,8 @@ Projects:
 
   bashTest - first quick tests using bash scripts to start thinking about problem.
 
+  javaSol - Java solution as relatively efficient and highly portable option.
+
 
 
 
