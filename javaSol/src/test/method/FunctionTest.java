@@ -32,7 +32,7 @@ public class FunctionTest {
 			Scanner scanCounts = new Scanner(new File(countFile));
 			int failCount=0;
 			while (scanTerms.hasNext()) {
-                String s = scanTerms.next();
+                String s = scanTerms.nextLine();
 				int count = -1;
 				if (searchType.equals("simple")) {
 					count = SimpleSearch.getCount(dirname+"/testfile.txt", s);
