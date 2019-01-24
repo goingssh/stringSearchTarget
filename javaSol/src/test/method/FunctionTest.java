@@ -1,3 +1,5 @@
+package method;
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -5,7 +7,7 @@ import java.lang.*;
 /**
  * @author Sherri Goings
  */
-public class Test {
+public class FunctionTest {
 	/**
 	 * Runs test specified in testdir on getCount method in SimpleSearch class.
 	 * testdir contains at least 3 files:
@@ -23,18 +25,15 @@ public class Test {
 	 * @return          -1 if IO error, 0 otherwise.
 	 * @see             SimpleSearch.java
 	 */
-	public static int SimpleSearchTest(String dirname, boolean substr) {
-		String countFile = dirname+"/result_exact.txt";
-		if (substr) {
-			countFile=dirname+"/result_substr.txt";
-		}
+	public static int SimpleSearchTest(String dirname) {
+		String countFile = dirname+"/result_substr.txt";
 		try{
       	    Scanner scanTerms = new Scanner(new File(dirname+"/search_terms.txt"));
 			Scanner scanCounts = new Scanner(new File(countFile));
 			int failCount=0;
 			while (scanTerms.hasNext()) {
                 String s = scanTerms.next();
-				int count = SimpleSearch.getCount(dirname+"/testfile.txt", s, substr);
+				int count = SimpleSearch.getCount(dirname+"/testfile.txt", s);
 				int testcount = scanCounts.nextInt();
 				if (count != testcount) {
 					System.out.print("test fail on term -" + s + "- ");
@@ -51,21 +50,19 @@ public class Test {
 	}
 
 	/**
-	 * Runs test twice, once with exact matches and once including substrings.
-	 * Assumes given subdirectory will contain result files for both methods.
-	 * @param  args  requires 1 command line argument - path to test directory
+	 * Runs quick function checking tests.
+	 * @param  args  requires 1 path to test directory on command line, more are optional
 	 */
 	public static void main(String[] args) {
 		if (args.length < 1) {
 			System.out.println("usage: java Test testdir");
            return;
         }
-        String dirname = args[0];
-		System.out.println("\ntesting substr matches");
-		int err = SimpleSearchTest(dirname, true);
-		//		if (err >= 0) {
-		//			System.out.println("\ntesting exact matches");
-		//			err = SimpleSearchTest(dirname, false);
-		//		}
+		for (int i=0; i<args.length; i++) {
+			String dirname = args[i];
+			System.out.println("\ntesting dir " + dirname);
+			int err = SimpleSearchTest(dirname);
+			if (err < 0) break;
+		}
 	}
 }
