@@ -7,7 +7,7 @@ import java.io.*;
 import java.lang.*;
 
 /**
- * Count number instances of search term in files where searcg term is regular expression
+ * Count number instances of search term in files where search term is regular expression
  * @author Sherri Goings
  */
 public class RegExpSearch {

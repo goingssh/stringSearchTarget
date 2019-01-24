@@ -1,17 +1,27 @@
 Task: given single-token search string, find count of all instances in text file.
 
-Requirements: Java7
+To run: requires JRE Java 7 or later (currently only tested on 1.8.0_121)
+  JAR file is in javaSol/dist, testfile paths are currently relative and require navigating into dist folder on command line then run “java -jar StringSearch-20190124.jar”
 
-To run: JAR file is in dist folder, testfile paths currently require navigating to dist folder on command line then run “java -jar StringSearch-20190124.jar”
+To compile: requires JDK JAva 7 or later (currently only tested on 1.8.0_121), to use ant build requires ant (tested on version 1.10.1)
+  from javaSol directory, run “ant compile”, to create new JAR run “ant dist”, run “ant clean” to clean dist and bin dirs.
 
-To compile: from javaSol directory, run “ant compile”, to create new JAR run “ant dist”
-
-JAR file currently runs all applicable functional tests on each of 3 solution methods
+JAR file currently runs all functional tests (if applicable) on each of 3 solution methods
   Simple string matching
   Regular expression matching
   Preprocessing into hash table then lookup
+
+Tests can be found (and modified) at javaSol/resources/function_tests.
 
 Files for each test dir:
  testfile.txt - text file to search for occurences of search string.
  search_terms.txt - list of search strings, 1 per line.
  result*.txt - corresponding expected counts, 1 per line, for search strings in search_terms.txt. 
+
+Function test for a given solution reads the terms from search_terms.txt, gets the solution’s count for each term in testfile.txt, then compares those counts to the expected results in either result_substr.txt (simple string and regular expression matching which both handle phrases and substrings of words), or result_exact.txt (preprocessed index matching which only handles exact word matches delimited by whitespace on either side).
+
+test1 dir applies to all solutions and has a very small text file with some basic tests such as a word at beginning/end of file, a word that does not appear, a word that appears only as a substring, ...
+
+test2 dir applies to all solutions and uses one of the provided test .txt files from Target. It tests words that appear many times, “words” that are just numbers, phrases that include one or more spaces, ...
+
+test3 dir applies only to regular expression solution and contains several examples of simple regular expressions.
