@@ -2,3 +2,4 @@ bashTest/out*.txt
 **/.DS_Store
 **/*~
 **/*.class
+**/.#*

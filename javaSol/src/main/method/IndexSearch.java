@@ -8,7 +8,16 @@ import java.lang.*;
  * Count number instances of search term in files where first preprocess files to hash word counts
  * @author Sherri Goings
  */
-public class IndexSearch implements Search {
+public class IndexSearch extends Search {
+
+	// list of all file/map pairs
+	private ArrayList<FileMap> filemaps;
+	
+	public IndexSearch(String path) {
+		super(path);
+		filemaps = new ArrayList<FileMap>();
+		readFiles(path);
+	}
 
 	// associates each filename with its map of wordcounts
 	private class FileMap {
@@ -19,32 +28,21 @@ public class IndexSearch implements Search {
 			this.filename = filename;
 			wordcounts = new HashMap<String, Integer>();
 		}
-
 		public void addWord(String word) {
 			if (wordcounts.containsKey(word)) {
 				wordcounts.put(word, wordcounts.get(word)+1);
 			}
-			else {
-				wordcounts.put(word, 1);
-			}
+			else { wordcounts.put(word, 1); }
 		}
-
 		public int getCount(String word) {
 			if (wordcounts.containsKey(word)) {
 				return wordcounts.get(word);
 			}
-			else {
-				return 0;
-			}
+			else { return 0; }
 		}
 	}
 
-	// list of all file/map pairs
-	private ArrayList<FileMap> filemaps;
-
-	public IndexSearch(String path) {
-		filemaps = new ArrayList<FileMap>();
-		
+	private void readFiles(String path) {
 		File folder = new File(path);
 		File[] filelist = folder.listFiles();
 		
