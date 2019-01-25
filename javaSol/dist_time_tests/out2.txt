@@ -1,0 +1,30 @@
+running tests on dir: FewShortFile
+
+testing index search
+0.001      0.003     
+
+testing simple search
+0.022      0.010     
+
+testing regex search
+0.028      0.023     
+running tests on dir: singleLongFile
+
+testing index search
+0.000      0.000     
+
+testing simple search
+4.676      4.523     
+
+testing regex search
+7.732      7.710     
+running tests on dir: All
+
+testing index search
+0.001      0.002     
+
+testing simple search
+0.006      8.503     
+
+testing regex search
+0.011      14.218    

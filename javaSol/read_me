@@ -17,11 +17,11 @@ To compile: requires Java 7 or later (currently only tested on 1.8.0_121), to us
 
 
 TESTS
-    1. Efficiency - coming soon!
+    1. Efficiency - navigate to dist_time_tests directory and run JAR file (java -jar RunTimeTests.jar). This will run all time tests (different numbers and sizes of files in test folders) on each of 3 solution methods.  The files out1.txt and out2.txt have data from tests previously run.  The only difference is the column order, out1.txt has the first column getting counts from all files and the 2nd column from only one file (just to see if aggregating searches into a list to return made a difference as an extra step). out2.txt has columns in the opposite order (because Java caches like crazy and straight up wall-clock time tests can be very off depending on the order in which you do things). For the same reason the index method is always performed first, so that it doesn’t get an advantage from caching.
 
     2. Functional - navigate to dist_functional_tests directory and run JAR file (java -jar RunFunctionalTests.jar). This will run all functional tests (if applicable) on each of 3 solution methods
 
-Tests can be found (and modified) at javaSol/resources/function_tests.
+Functional tests can be found (and modified) at javaSol/resources/function_tests.
 
 Files for each test dir:
  testfile.txt - text file to search for occurences of search string.

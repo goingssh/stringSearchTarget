@@ -39,7 +39,7 @@ public class InteractiveSearch {
 		InteractiveSearch is = new InteractiveSearch(path);
 		Scanner scanner = new Scanner(System.in);
 
-		
+		// * need to change to nextline so can test multi-word phrases
 		System.out.println("Enter the search term or 'q' to quit: ");
 		String searchTerm = scanner.next();
 		int method = -1;
