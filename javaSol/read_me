@@ -11,6 +11,8 @@ To run: requires Java 7 or later (currently only tested on 1.8.0_121)
   
     2. Functional Tests - JAR file is in javaSol/dist_functional_tests - see info on tests below.
 
+    3. Efficiency Tests - JAR file is in javaSol/dist_time_tests - see info on tests below.
+
 
 To compile: requires Java 7 or later (currently only tested on 1.8.0_121), to use ant build requires ant (tested on version 1.10.1) - from javaSol directory, run “ant compile” to build class files, to create new JAR run “ant dist”, use “ant clean” to clear dist and bin dirs.
 
