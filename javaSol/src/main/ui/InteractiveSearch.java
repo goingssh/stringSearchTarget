@@ -39,13 +39,29 @@ public class InteractiveSearch {
 		InteractiveSearch is = new InteractiveSearch(path);
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Enter the search term: ");
+		
+		System.out.println("Enter the search term or 'q' to quit: ");
 		String searchTerm = scanner.next();
+		int method = -1;
+		while (!searchTerm.equals("q")) {
+			boolean goOn=false;
+			while (!goOn) {
+				try{
+					System.out.println("Enter the search method (1 - string match, 2 - regular expression, or 3 - indexed): ");
+					method = scanner.nextInt();
+					if (method <= 3 && method >= 1) { goOn=true; }
+					else { System.out.println("Incorrect input: please enter an integer 1, 2, or 3. "); }
 
-		System.out.println("Enter the search method (1 - string match, 2 - regular expression, or 3 - indexed): ");
-		int method = scanner.nextInt();
-		
-		is.search(searchTerm, method);
-		
+				}
+				catch (InputMismatchException ex) {
+					System.out.println("Incorrect input: please enter an integer! ");
+					scanner.nextLine();
+				}
+			}
+			is.search(searchTerm, method);
+			System.out.println("Enter the search term or 'q' to quit: ");
+			searchTerm = scanner.next();
+		}   
+
 	}
 }
