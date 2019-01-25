@@ -34,7 +34,7 @@
 		<!-- Put everything in ${build} into the {$projectName}-${DSTAMP}.jar file -->
 		<jar jarfile="${dist.dir}/${projectName}-${DSTAMP}.jar" basedir="${build.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="method.FunctionTest" />
+				<attribute name="Main-Class" value="ui.InteractiveSearch" />
 			</manifest>
 		</jar>
 	</target>

@@ -18,6 +18,17 @@ public class SimpleSearch extends Search {
 	public SimpleSearch(String path) {
 		super(path);
 	}
+
+
+	public ArrayList<FileCount> getCounts(String searchTerm) {
+		ArrayList<FileCount> counts = new ArrayList<FileCount>();
+		for (FileString fs : getFileStrings()) {
+			int curCount = getCount(searchTerm, fs.getContents());
+			FileCount fc = new FileCount(fs.getName(), curCount);
+			counts.add(fc);
+		}
+		return counts;
+	}
 	
    	/**
 	 * Finds the number of times a search string appears in a text file.

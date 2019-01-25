@@ -40,6 +40,9 @@ public class IndexSearch extends Search {
 			}
 			else { return 0; }
 		}
+		public String getName() {
+			return filename;
+		}
 	}
 
 	private void readFiles(String path) {
@@ -70,6 +73,15 @@ public class IndexSearch extends Search {
 		return 0;
 	}
 
+	public ArrayList<FileCount> getCounts(String searchTerm) {
+		ArrayList<FileCount> counts = new ArrayList<FileCount>();
+		for (FileMap fm : filemaps) {
+			int curCount = fm.getCount(searchTerm);
+			FileCount fc = new FileCount(fm.getName(), curCount);
+			counts.add(fc);
+		}
+		return counts;
+	}
 
 	/**
 	 * Finds the number of times a search string appears in a text file.

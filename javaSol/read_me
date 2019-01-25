@@ -1,15 +1,25 @@
-Task: given single-token search string, find count of all instances in text file.
+Task: given single-token search string, find count of all instances in all text files in given directory. Output counts sorted by most frequent file. Implement with 3 different search methods.
+  1. Simple string matching
+  2. Regular expression matching
+  3. Preprocessing into hash table then lookup
 
-To run: requires JRE Java 7 or later (currently only tested on 1.8.0_121)
-  JAR file is in javaSol/dist, testfile paths are currently relative and require navigating into dist folder on command line then run “java -jar StringSearch-20190124.jar”
 
-To compile: requires JDK JAva 7 or later (currently only tested on 1.8.0_121), to use ant build requires ant (tested on version 1.10.1)
-  from javaSol directory, run “ant compile”, to create new JAR run “ant dist”, run “ant clean” to clean dist and bin dirs.
+To run: requires Java 7 or later (currently only tested on 1.8.0_121)
+    
+    1. Interactive Mode - JAR file is in javaSol/dist, text file paths are currently relative, to use default path (javaSol/resources/ui), navigate into dist folder on command line then run “java -jar StringSearch-20190124.jar”. Optionally may include command line argument to path of your choice and all text files in given folder will be searched.
 
-JAR file currently runs all functional tests (if applicable) on each of 3 solution methods
-  Simple string matching
-  Regular expression matching
-  Preprocessing into hash table then lookup
+  
+    2. Functional Tests - JAR file is in javaSol/dist_functional_tests - see info on tests below.
+
+
+To compile: requires Java 7 or later (currently only tested on 1.8.0_121), to use ant build requires ant (tested on version 1.10.1) - from javaSol directory, run “ant compile” to build class files, to create new JAR run “ant dist”, use “ant clean” to clear dist and bin dirs.
+
+
+
+TESTS
+    1. Efficiency - coming soon!
+
+    2. Functional - navigate to dist_functional_tests directory and run JAR file (java -jar RunFunctionalTests.jar). This will run all functional tests (if applicable) on each of 3 solution methods
 
 Tests can be found (and modified) at javaSol/resources/function_tests.
 

@@ -58,7 +58,7 @@ public abstract class Search {
 		return filestrings;
 	}
 
-	//public abstract ArrayList<FileCount> getCounts(String searchTerm);
+	public abstract ArrayList<FileCount> getCounts(String searchTerm);
 	
 	public abstract int getCount(String searchTerm);
 }
